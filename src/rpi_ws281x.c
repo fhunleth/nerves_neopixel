@@ -64,11 +64,11 @@ int main(int argc, char *argv[]) {
   if (argc != 5)
     errx(EXIT_FAILURE, "Usage: %s <Channel 1 GPIO Pin> <Channel 1 LED Count> <Channel 2 GPIO Pin> <Channel 2 LED Count>", argv[0]);
 
-  uint8_t gpio_pin1 = atoi(argv[1]);
-  uint32_t led_count1 = strtol(argv[2], NULL, 10);
+  int gpio_pin1 = strtol(argv[1], NULL, 0);
+  int led_count1 = strtol(argv[2], NULL, 0);
 
-  uint8_t gpio_pin2 = atoi(argv[3]);
-  uint32_t led_count2 = strtol(argv[4], NULL, 10);
+  int gpio_pin2 = strtol(argv[3], NULL, 0);
+  int led_count2 = strtol(argv[4], NULL, 0);
 
   /*
   Setup the channels. Raspberry Pi supports 2 PWM channels.
