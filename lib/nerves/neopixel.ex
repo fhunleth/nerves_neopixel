@@ -32,9 +32,10 @@ defmodule Nerves.Neopixel do
     ch2_count = (ch2[:count] || 0)
     |> to_string
 
+    dmanum = Application.get_env(:nerves_neopixel, :dmanum, "5")
 
     port = Port.open({:spawn_executable, rpi_ws281x_path()},
-      [{:args, [ch1_pin, ch1_count, ch2_pin, ch2_count]},
+      [{:args, [ch1_pin, ch1_count, ch2_pin, ch2_count, dmanum]},
         {:packet, 2},
         :use_stdio,
         :exit_status,

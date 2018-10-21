@@ -13,9 +13,6 @@
 #include "erlcmd.h"
 #include "utils.h"
 
-#define DMA_CHANNEL 5
-
-
 /*
   Receive from Erlang a list of tuples
   {channel, {brightness, data}}
@@ -61,8 +58,8 @@ static void led_handle_request(const char *req, void *cookie) {
 }
 
 int main(int argc, char *argv[]) {
-  if (argc != 5)
-    errx(EXIT_FAILURE, "Usage: %s <Channel 1 GPIO Pin> <Channel 1 LED Count> <Channel 2 GPIO Pin> <Channel 2 LED Count>", argv[0]);
+  if (argc != 6)
+    errx(EXIT_FAILURE, "Usage: %s <Channel 1 GPIO Pin> <Channel 1 LED Count> <Channel 2 GPIO Pin> <Channel 2 LED Count> <DMA Channel>", argv[0]);
 
   int gpio_pin1 = strtol(argv[1], NULL, 0);
   int led_count1 = strtol(argv[2], NULL, 0);
@@ -70,12 +67,14 @@ int main(int argc, char *argv[]) {
   int gpio_pin2 = strtol(argv[3], NULL, 0);
   int led_count2 = strtol(argv[4], NULL, 0);
 
+  int dmanum = strtol(argv[5], NULL, 0);
+
   /*
   Setup the channels. Raspberry Pi supports 2 PWM channels.
   */
   ws2811_t ledstring = {
     .freq = WS2811_TARGET_FREQ,
-    .dmanum = DMA_CHANNEL,
+    .dmanum = dmanum,
     .channel = {
       [0] = {
         .gpionum = gpio_pin1,

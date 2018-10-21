@@ -29,6 +29,11 @@ use Mix.Config
 #
 #     import_config "#{Mix.env}.exs"
 
+config :nerves_neopixel,
+  dmanum: 10,
+  channel1: [pin: 0, count: 0],
+  channel2: [pin: 0, count: 0]
+
 config :logger,
   compile_time_purge_level: :info
 
